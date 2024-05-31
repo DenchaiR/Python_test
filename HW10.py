@@ -1,5 +1,5 @@
 from tkinter import * #import all function inside main package
-from tkinter import ttk #import sub package of tkinter that look beautify than tkinter
+from tkinter import ttk, messagebox #import sub package of tkinter that look beautify than tkinter
 import csv
 import os
 
@@ -74,7 +74,11 @@ def readcsv():
         data = list(fr)
         return data
 
-list = readcsv()
+# list = readcsv()
+try:
+    list = readcsv()
+except:
+    messagebox.showinfo('ไม่มีข้อมูล','ไม่เจอไฟล์ CSV กรุณาบันทึกข้อมูล')
 
 global countindex
 countindex = 0
