@@ -25,6 +25,10 @@ def calculate_and_save():
     try:
         price = float(E2.get())
         month = int(E3.get())
+        
+        if month < 1 or month > 10:
+            raise ValueError("จำนวนเดือนต้องอยู่ระหว่าง 1 ถึง 10")
+
         result = cal_credit_interest(price, month)
         
         # บันทึกข้อมูลลงในไฟล์ CSV
@@ -43,14 +47,14 @@ def calculate_and_save():
         print(result)
         print('----------')
         
-    except ValueError:
+    except ValueError as e:
         result_label.delete(1.0, END)
-        result_label.insert(END, "กรุณากรอกข้อมูลให้ถูกต้อง")
+        result_label.insert(END, f"กรุณากรอกข้อมูลให้ถูกต้อง: {str(e)}")
 
 # หน้าต่างของการใช้งาน GUI
 GUI = ttk.Window(themename='darkly')  # สร้างหน้าต่าง GUI พร้อมกำหนดธีม
 GUI.title('โปรแกรมคำนวณยอดผ่อนบัตรเครดิต By Denchai R.')
-GUI.geometry('300x720')
+GUI.geometry('300x800')
 GUI.iconbitmap(noteicon)  # ตั้งค่าไอคอนที่นี่
 
 # Build main label
@@ -140,7 +144,7 @@ E2 = ttk.Entry(GUI, font=('Angsana New', 18), width=30)
 E2.pack(pady=2)
 
 # Build sub label 2
-L3 = ttk.Label(GUI, text='จำนวนเดือนที่ต้องการผ่อน', font=('Angsana New', 18))
+L3 = ttk.Label(GUI, text='จำนวนเดือนที่ต้องการผ่อน \n1-3 เดือน คิดดอกเบี้ย 0% \n4-10 เดือน คิดดอกเบี้ย 0.69%', font=('Angsana New', 18))
 L3.pack(pady=2)
 
 # Build sub box 2
